@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 filePath = './data/chipotle.tsv'
+pd.set_option('display.max_columns', None)
 chipo = pd.read_csv(filePath, sep='\t')
 
 # 문자형 실수값을 실수로 변환
@@ -67,4 +68,24 @@ print(bb.groupby('order_id').count())
 # 2. 중복을 제거하는 함수가 있다.
 print(bb.drop_duplicates(['order_id', 'item_name']))
 
+# Chicken Bowl을 2개이상 주문한 횟수  quntity  >= 2
 #
+# chickenBowlList = chipo[chipo['item_name'] == 'Chicken Bowl']
+# chickenBowlList = chickenBowlList[chickenBowlList['quantity'] >= 2]
+# chickenBowlList = chipo[(chipo['item_name'] == 'Chicken Bowl') and (chipo['quantity'] >= 2)]
+chickenBowlList = chipo[(chipo['item_name'] == 'Chicken Bowl') & (chipo['quantity'] >= 2)]
+print(chickenBowlList.shape[0])
+
+# 에러 조사
+# ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+
+# Chicken Bowl을 2개이상 주문한 총 수량
+print(chickenBowlList['quantity'].sum())
+
+# dataFrame 에서 loc iloc  at  iat  이런 함수를 사용해서 필요한 데이터만 접근하기
+# join zip pivot 과 같은 기능을 이용해서 기존데이터를 조작해서 새로운 데이터를 만드는 case
+
+
+
+
+
